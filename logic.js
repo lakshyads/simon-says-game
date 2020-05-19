@@ -42,7 +42,7 @@ function newGame() {
 
 
 /**
- * 
+ * Change the game level according to game status
  * @param {string} gameStatus Available status: 'nextLevel', 'gameOver'.
  */
 function changeLevel(gameStatus) {
