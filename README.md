@@ -6,3 +6,4 @@ SimonSays game built using HTML, CSS, Javascript, JQuery
 2. Double click on index.html to open it in a browser.
 3. Enjoy the game.
 
+###Feel free to enhance and contribute to the game
