@@ -1,3 +1,14 @@
+/**
+ * * SIMON-SAYS **
+ * * ---------- **
+ * 
+ * Game logic
+ * @author Lakshya Dev
+ * @version 1.0
+ * @lastEditedOn 20-May-2020
+ */
+
+
 // Game vars
 const btnIds = ['green', 'red', 'yellow', 'blue'];
 let isGameStarted = false;
@@ -24,10 +35,7 @@ $(document).ready(() => {
 
 });
 
-
-
 // ---------------- Game events ---------------------------
-
 
 /**
  * Start new game
@@ -43,7 +51,7 @@ function newGame() {
 
 /**
  * Change the game level according to game status
- * @param {string} gameStatus Available status: 'nextLevel', 'gameOver'.
+ * @param {string} gameStatus Available status: 'nextLevel' - progress through level on user pattern correct match, 'gameOver' - user pattern fails to match.
  */
 function changeLevel(gameStatus) {
     let levelTitle = "";
@@ -60,11 +68,7 @@ function changeLevel(gameStatus) {
         case 'gameOver':
             levelTitle = `Game Over, Press Any Key to Restart`;
             changeLevelTitle(levelTitle);
-            new Audio('./sounds/wrong.mp3').play();
-            $('body').addClass('game-over');
-            setTimeout(() => {
-                $('body').removeClass('game-over');
-            }, 500);
+            showGameOverEffects();
             isGameStarted = false;
             break;
     }
@@ -78,17 +82,17 @@ function buildPattern() {
     const randomBtnId = btnIds[randomNumber];
 
     gameMoves.push(randomBtnId);
-    showBtnPress(randomBtnId);
+    showBtnPressEffects(randomBtnId);
 
 }
 
 /**
  * User-click game button with specified id
- * @param {number} btnId 
+ * @param {number} btnId Id of clicked button 
  */
 function clickButton(btnId) {
     userMoves.push(btnId);
-    showBtnPress(btnId);
+    showBtnPressEffects(btnId);
     validatePattern();
 
 }
@@ -123,22 +127,33 @@ function validatePattern() {
 // ---------------- UTILS ------------------
 
 /**
- * Replace the text of the level-title element with specified string
- * @param {string} title 
+ * Replace the text of the level-title element 
+ * @param {string} title String to replace level-title with
  */
 function changeLevelTitle(title) {
     $('#level-title').text(title);
 }
 
 /**
- * Simulate button press and play corresponding sound
- * @param {string} btnId Button Id to simulate
+ * Button press effects: flash pressed button and play corresponding sound
+ * @param {string} btnId Button Id to render effects on
  */
-function showBtnPress(btnId) {
+function showBtnPressEffects(btnId) {
     const btnObj = $(`#${btnId}`);
 
     btnObj.fadeOut(200).fadeIn(200);
     new Audio(`./sounds/${btnId}.mp3`).play();
+}
+
+/**
+ * Game over effects: flash red background and play gameover audio 
+ */
+function showGameOverEffects() {
+    new Audio('./sounds/wrong.mp3').play();
+    $('body').addClass('game-over');
+    setTimeout(() => {
+        $('body').removeClass('game-over');
+    }, 500);
 }
 
 /**
