@@ -61,6 +61,10 @@ function changeLevel(gameStatus) {
             levelTitle = `Game Over, Press Any Key to Restart`;
             changeLevelTitle(levelTitle);
             new Audio('./sounds/wrong.mp3').play();
+            $('body').addClass('game-over');
+            setTimeout(() => {
+                $('body').removeClass('game-over');
+            }, 500);
             isGameStarted = false;
             break;
     }
